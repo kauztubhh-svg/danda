@@ -48,16 +48,41 @@ const defaultState: GameState = {
 
 const STORAGE_KEY = "imposter_party_game_settings_v1";
 
+function normalizePlayers(value: unknown): Player[] {
+  if (!Array.isArray(value)) return [];
+
+  const usedIds = new Set<string>();
+  let nextGeneratedId = 1;
+
+  return value.map((entry, index) => {
+    const player = entry && typeof entry === "object" ? entry as Partial<Player> : {};
+    let id = typeof player.id === "string" && player.id.trim() ? player.id : "";
+
+    if (!id || usedIds.has(id)) {
+      do {
+        id = `p-${nextGeneratedId++}`;
+      } while (usedIds.has(id));
+    }
+
+    usedIds.add(id);
+    return {
+      id,
+      name: typeof player.name === "string" ? player.name : `Player ${index + 1}`,
+    };
+  });
+}
+
 function getInitialState(): GameState {
   if (typeof window === "undefined") return defaultState;
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (parsed.players && Array.isArray(parsed.players) && parsed.players.length >= MIN_PLAYERS) {
+      const players = normalizePlayers(parsed.players);
+      if (players.length >= MIN_PLAYERS) {
         return {
           ...defaultState,
-          players: parsed.players,
+          players,
           imposterCount: parsed.imposterCount || 1,
           category: parsed.category || "ALL",
           soundEnabled: parsed.soundEnabled ?? true,
@@ -128,7 +153,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       let newPlayers = [...prev.players];
       if (clampedCount > newPlayers.length) {
         for (let i = newPlayers.length; i < clampedCount; i++) {
-          newPlayers.push({ id: `p-${Date.now()}-${i + 1}`, name: "" });
+          const usedIds = new Set(newPlayers.map((player) => player.id));
+          let id = `p-${Date.now()}-${i + 1}`;
+          let suffix = 1;
+          while (usedIds.has(id)) {
+            id = `p-${Date.now()}-${i + 1}-${suffix++}`;
+          }
+          newPlayers.push({ id, name: "" });
         }
       } else if (clampedCount < newPlayers.length) {
         newPlayers = newPlayers.slice(0, clampedCount);
@@ -204,15 +235,22 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   }, [state.players, state.imposterCount, state.category]);
 
   const startRevealCard = useCallback(() => {
-    setState((prev) => ({ ...prev, phase: "reveal" }));
+    setState((prev) => {
+      const hasCurrentPlayer = prev.revealOrder[prev.currentRevealIndex] !== undefined;
+      if (prev.phase !== "pass-phone" || !hasCurrentPlayer) return prev;
+      return { ...prev, phase: "reveal" };
+    });
   }, []);
 
   const hideAndNextCard = useCallback(() => {
     setState((prev) => {
+      if (prev.phase !== "reveal") return prev;
+
       const nextIndex = prev.currentRevealIndex + 1;
       if (nextIndex >= prev.revealOrder.length) {
         return {
           ...prev,
+          currentRevealIndex: prev.revealOrder.length,
           phase: "ready-to-start",
         };
       }
@@ -226,6 +264,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const beginStarterSelection = useCallback(() => {
     setState((prev) => {
+      if (prev.phase !== "ready-to-start" || prev.players.length === 0) return prev;
+
       const shuffled = shuffleArray(prev.players);
       const startingPlayerId = shuffled[0].id;
       return {
@@ -238,6 +278,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const advanceStarterToCluePhase = useCallback(() => {
     setState((prev) => {
+      if (prev.phase !== "starter-selection" || prev.players.length === 0) return prev;
+
       const starterIdx = prev.players.findIndex((p) => p.id === prev.startingPlayerId);
       const initialTurnIndex = starterIdx !== -1 ? starterIdx : 0;
       return {
@@ -251,6 +293,8 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   const nextClueTurn = useCallback(() => {
     setState((prev) => {
+      if (prev.phase !== "clue-phase" || prev.players.length === 0) return prev;
+
       const currentIndex = prev.currentTurnIndex ?? 0;
       const nextIndex = (currentIndex + 1) % prev.players.length;
       const isNewRound = nextIndex === 0;
@@ -283,6 +327,9 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   // Computed properties
   const currentPlayerToReveal = useMemo(() => {
     if (state.phase !== "pass-phone" && state.phase !== "reveal") return undefined;
+    if (state.currentRevealIndex < 0 || state.currentRevealIndex >= state.revealOrder.length) {
+      return undefined;
+    }
     const currentId = state.revealOrder[state.currentRevealIndex];
     return state.players.find((p) => p.id === currentId);
   }, [state.phase, state.revealOrder, state.currentRevealIndex, state.players]);

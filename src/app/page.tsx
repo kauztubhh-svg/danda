@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const { state } = useGameState();
+  const viewKey = `${state.phase}-${state.currentRevealIndex}`;
 
   const renderPhase = () => {
     switch (state.phase) {
@@ -41,7 +42,7 @@ export default function Home() {
     <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-md mx-auto w-full relative overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
-          key={state.phase}
+          key={viewKey}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}

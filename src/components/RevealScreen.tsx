@@ -27,6 +27,8 @@ export default function RevealScreen() {
   const lastTickProgressRef = useRef<number>(0);
 
   const handleRevealComplete = useCallback(() => {
+    holdStartRef.current = null;
+    animFrameRef.current = null;
     setIsRevealed(true);
     setIsHolding(false);
     setProgress(100);
@@ -40,11 +42,12 @@ export default function RevealScreen() {
   const startHold = (e: React.PointerEvent) => {
     // Prevent default context menus or gesture triggers
     e.preventDefault();
-    if (isRevealed) return;
+    if (isRevealed || isHolding) return;
 
     setIsHolding(true);
     holdStartRef.current = Date.now();
     lastTickProgressRef.current = 0;
+    e.currentTarget.setPointerCapture(e.pointerId);
 
     const step = () => {
       if (!holdStartRef.current) return;
@@ -154,7 +157,6 @@ export default function RevealScreen() {
         <div
           onPointerDown={startHold}
           onPointerUp={cancelHold}
-          onPointerLeave={cancelHold}
           onPointerCancel={cancelHold}
           onContextMenu={(e) => e.preventDefault()}
           className={`relative w-64 h-64 rounded-full flex flex-col items-center justify-center cursor-pointer transition-transform duration-150 select-none touch-none ${
