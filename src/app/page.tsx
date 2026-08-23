@@ -9,11 +9,9 @@ import ReadyScreen from "@/components/ReadyScreen";
 import StarterSelection from "@/components/StarterSelection";
 import CluePhase from "@/components/CluePhase";
 import GameOver from "@/components/GameOver";
-import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const { state } = useGameState();
-  const viewKey = `${state.phase}-${state.currentRevealIndex}`;
 
   const renderPhase = () => {
     switch (state.phase) {
@@ -40,18 +38,7 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-md mx-auto w-full relative overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={viewKey}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.2 }}
-          className="w-full flex-1 flex flex-col"
-        >
-          {renderPhase()}
-        </motion.div>
-      </AnimatePresence>
+      <div className="w-full flex-1 flex flex-col">{renderPhase()}</div>
     </main>
   );
 }
