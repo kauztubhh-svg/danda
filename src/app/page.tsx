@@ -37,7 +37,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-md mx-auto w-full relative overflow-hidden">
+    <main className="app-shell flex-1 flex flex-col items-center justify-center p-4 sm:p-8 max-w-xl mx-auto w-full relative overflow-hidden">
       <div className="w-full flex-1 flex flex-col">{renderPhase()}</div>
     </main>
   );

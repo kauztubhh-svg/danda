@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { GameProvider } from "@/hooks/useGameState";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IMPOSTER | The Party Game",
@@ -23,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-slate-950 text-slate-50 min-h-screen flex flex-col overscroll-none selection:bg-indigo-500/30`}>
+    <html lang="en">
+      <body className="min-h-screen flex flex-col overscroll-none selection:bg-yellow-200">
         <GameProvider>
           {children}
         </GameProvider>

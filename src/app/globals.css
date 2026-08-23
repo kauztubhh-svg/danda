@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #fffdf8;
+  --foreground: #17324d;
+  --paper: #fffdf8;
+  --ink: #17324d;
+  --muted-ink: #637487;
+  --line: #d9e1e8;
+  --yellow: #ffd447;
+  --coral: #ff756b;
+  --mint: #8ed9bf;
+  --sky: #8ed0f2;
 }
 
 @theme inline {
@@ -11,12 +19,179 @@
 }
 
 html, body {
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: var(--paper);
+  color: var(--ink);
   min-height: 100vh;
   min-height: 100dvh;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: "Comic Sans MS", "Segoe Print", cursive;
+  background-image: radial-gradient(#d7e5e9 0.7px, transparent 0.7px);
+  background-size: 18px 18px;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  letter-spacing: 0.01em;
+}
+
+.app-shell {
+  max-width: 42rem !important;
+}
+
+.app-shell::before,
+.app-shell::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.app-shell::before {
+  width: 92px;
+  height: 72px;
+  top: 9%;
+  left: 5%;
+  border: 4px solid var(--coral);
+  border-radius: 48% 52% 45% 55%;
+  transform: rotate(-14deg);
+  animation: doodle-float 5s ease-in-out infinite;
+}
+
+.app-shell::after {
+  width: 70px;
+  height: 70px;
+  right: 7%;
+  bottom: 10%;
+  border: 4px dashed var(--sky);
+  border-radius: 50%;
+  transform: rotate(18deg);
+  animation: doodle-float 6s ease-in-out infinite reverse;
+}
+
+.app-shell > div {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell .max-w-sm {
+  max-width: 34rem !important;
+}
+
+/* Translate the existing utility palette into ink on paper. */
+[class*="bg-slate-"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+[class*="text-white"],
+[class*="text-slate-"] {
+  color: var(--ink) !important;
+}
+
+[class*="border-slate-"] {
+  border-color: var(--line) !important;
+}
+
+[class*="bg-indigo-6"],
+[class*="bg-gradient"] {
+  background-color: var(--yellow) !important;
+  background-image: none !important;
+  color: var(--ink) !important;
+}
+
+[class*="bg-indigo-"][class*="/"] {
+  background-color: #fff7d4 !important;
+}
+
+button[class*="bg-slate-"]:hover {
+  background-color: #fff7d4 !important;
+}
+
+button[class*="bg-indigo-"]:hover,
+button[class*="bg-gradient"]:hover {
+  background-color: #f5c52d !important;
+}
+
+[class*="text-indigo-"] {
+  color: #187a9b !important;
+}
+
+[class*="border-indigo-"] {
+  border-color: #f0bd22 !important;
+}
+
+[class*="bg-indigo-5"],
+[class*="bg-indigo-6"] {
+  background-color: var(--yellow) !important;
+}
+
+[class*="bg-rose-"] {
+  background-color: #fff0ed !important;
+}
+
+[class*="text-rose-"] {
+  color: #c94d48 !important;
+}
+
+[class*="border-rose-"] {
+  border-color: #f2aaa2 !important;
+}
+
+[class*="bg-emerald-"] {
+  background-color: #e7f8ef !important;
+}
+
+[class*="text-emerald-"] {
+  color: #287c61 !important;
+}
+
+[class*="border-emerald-"] {
+  border-color: #a6dec6 !important;
+}
+
+[class*="text-amber-"] {
+  color: #b27600 !important;
+}
+
+[class*="shadow-"] {
+  box-shadow: 3px 4px 0 rgba(23, 50, 77, 0.12) !important;
+}
+
+.rounded-2xl,
+.rounded-3xl {
+  border-radius: 18px !important;
+}
+
+input:focus {
+  box-shadow: 3px 3px 0 rgba(255, 212, 71, 0.45) !important;
+}
+
+@keyframes doodle-float {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: 12px; }
+}
+
+@media (max-width: 640px) {
+  .app-shell::before {
+    top: 4%;
+    left: -32px;
+    transform: scale(0.7) rotate(-14deg);
+  }
+
+  .app-shell::after {
+    right: -18px;
+    bottom: 5%;
+    transform: scale(0.65) rotate(18deg);
+  }
 }
 
 .custom-scrollbar::-webkit-scrollbar {
