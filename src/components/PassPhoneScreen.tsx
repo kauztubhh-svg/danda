@@ -6,9 +6,27 @@ import { motion } from "framer-motion";
 import { Smartphone, Eye, Shield } from "lucide-react";
 
 export default function PassPhoneScreen() {
-  const { state, currentPlayerToReveal, startRevealCard } = useGameState();
+  const { state, currentPlayerToReveal, startRevealCard, resetGame } = useGameState();
 
-  if (!currentPlayerToReveal) return null;
+  if (!currentPlayerToReveal) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm mx-auto gap-5 text-center">
+        <div className="space-y-2">
+          <h2 className="text-xl font-black text-white">Unable to load the next player</h2>
+          <p className="text-sm text-slate-400">
+            The game data is out of sync. Restart the setup to continue playing.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => resetGame(false)}
+          className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-5 rounded-2xl transition"
+        >
+          RESTART GAME
+        </button>
+      </div>
+    );
+  }
 
   const currentNumber = state.currentRevealIndex + 1;
   const totalNumber = state.revealOrder.length;

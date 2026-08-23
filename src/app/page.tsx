@@ -23,7 +23,7 @@ export default function Home() {
       case "pass-phone":
         return <PassPhoneScreen key="pass-phone" />;
       case "reveal":
-        return <RevealScreen key="reveal" />;
+        return <RevealScreen key={`reveal-${state.currentRevealIndex}`} />;
       case "ready-to-start":
         return <ReadyScreen key="ready-to-start" />;
       case "starter-selection":
