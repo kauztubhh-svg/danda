@@ -3,27 +3,15 @@
 import React, { useState } from "react";
 import { useGameState } from "@/hooks/useGameState";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Info, Sparkles, Volume2, VolumeX, ShieldAlert } from "lucide-react";
+import { Users, Info, Sparkles, ShieldAlert } from "lucide-react";
 import HowToPlay from "@/components/HowToPlay";
 
 export default function HomeScreen() {
-  const { updateState, toggleSound, isSoundEnabled } = useGameState();
+  const { updateState } = useGameState();
   const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   return (
     <div className="flex-1 flex flex-col justify-between items-center w-full max-w-sm mx-auto py-8">
-      {/* Top Bar with Sound Toggle */}
-      <div className="w-full flex justify-end">
-        <button
-          onClick={toggleSound}
-          className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-white transition flex items-center gap-2 text-xs font-medium"
-          aria-label={isSoundEnabled ? "Mute sounds" : "Unmute sounds"}
-        >
-          {isSoundEnabled ? <Volume2 size={18} className="text-indigo-400" /> : <VolumeX size={18} />}
-          <span>{isSoundEnabled ? "Sound ON" : "Muted"}</span>
-        </button>
-      </div>
-
       {/* Hero Branding */}
       <div className="text-center space-y-4 my-auto">
         <motion.div

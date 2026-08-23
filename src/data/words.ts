@@ -239,7 +239,106 @@ export const INITIAL_WORDS: Omit<WordEntry, "id">[] = [
   { word: "Superpower", category: "General", hint: "Extraordinary ability like flight or invisibility", difficulty: "easy" },
   { word: "Treasure Hunt", category: "General", hint: "Searching for hidden loot using a map", difficulty: "easy" },
   { word: "Mirage", category: "General", hint: "Optical illusion of water in hot weather", difficulty: "medium" },
-  { word: "Echo", category: "General", hint: "Sound reverberation in an empty canyon", difficulty: "easy" }
+  { word: "Echo", category: "General", hint: "Sound reverberation in an empty canyon", difficulty: "easy" },
+
+  // ==================== EXPANDED CATEGORY COLLECTION ====================
+  { word: "Tiger", category: "Animals", hint: "A striped predator found in forests", difficulty: "easy" },
+  { word: "Koala", category: "Animals", hint: "A sleepy tree-dwelling Australian animal", difficulty: "easy" },
+  { word: "Peacock", category: "Animals", hint: "A colorful bird known for display feathers", difficulty: "easy" },
+  { word: "Crocodile", category: "Animals", hint: "A powerful reptile near tropical water", difficulty: "easy" },
+  { word: "Butterfly", category: "Animals", hint: "A delicate winged garden visitor", difficulty: "easy" },
+  { word: "Falcon", category: "Animals", hint: "A swift bird associated with the open sky", difficulty: "medium" },
+
+  { word: "Noodles", category: "Food", hint: "A long comfort food prepared in many styles", difficulty: "easy" },
+  { word: "Dumplings", category: "Food", hint: "Small filled parcels served in many cuisines", difficulty: "easy" },
+  { word: "Popcorn", category: "Food", hint: "A light snack often enjoyed during films", difficulty: "easy" },
+  { word: "Pasta", category: "Food", hint: "A staple dish shaped and sauced in many ways", difficulty: "easy" },
+  { word: "Cheesecake", category: "Food", hint: "A rich dessert with a soft creamy center", difficulty: "easy" },
+  { word: "Mango", category: "Food", hint: "A summer fruit with a sweet tropical flavor", difficulty: "easy" },
+
+  { word: "Italy", category: "Countries", hint: "A European country with a long artistic history", difficulty: "easy" },
+  { word: "Mexico", category: "Countries", hint: "A country known for colorful traditions and varied terrain", difficulty: "easy" },
+  { word: "Iceland", category: "Countries", hint: "A northern island shaped by fire and ice", difficulty: "medium" },
+  { word: "South Africa", category: "Countries", hint: "A country where several landscapes meet", difficulty: "medium" },
+  { word: "Greece", category: "Countries", hint: "A Mediterranean country tied to ancient ideas", difficulty: "easy" },
+
+  { word: "Singapore", category: "Cities", hint: "A compact modern city-state in Southeast Asia", difficulty: "easy" },
+  { word: "Istanbul", category: "Cities", hint: "A historic city between two continents", difficulty: "medium" },
+  { word: "Seoul", category: "Cities", hint: "A fast-moving East Asian capital", difficulty: "easy" },
+  { word: "Sydney", category: "Cities", hint: "A coastal city with a famous performing arts landmark", difficulty: "easy" },
+  { word: "Rome", category: "Cities", hint: "An ancient European capital layered with history", difficulty: "easy" },
+
+  { word: "Hiking", category: "Sports", hint: "A physical activity carried out across natural paths", difficulty: "easy" },
+  { word: "Archery", category: "Sports", hint: "A precision contest using a distant target", difficulty: "medium" },
+  { word: "Skateboarding", category: "Sports", hint: "A balance-based activity on a small wheeled board", difficulty: "easy" },
+  { word: "Table Tennis", category: "Sports", hint: "A quick indoor rally across a small net", difficulty: "easy" },
+  { word: "Wrestling", category: "Sports", hint: "A physical contest decided through control and technique", difficulty: "easy" },
+
+  { word: "The Godfather", category: "Movies", hint: "A serious family story shaped by loyalty and power", difficulty: "medium" },
+  { word: "Finding Nemo", category: "Movies", hint: "An animated journey through a colorful underwater world", difficulty: "easy" },
+  { word: "The Lion King", category: "Movies", hint: "An animated coming-of-age story in the wild", difficulty: "easy" },
+  { word: "The Dark Knight", category: "Movies", hint: "A comic-book crime drama set in a troubled city", difficulty: "medium" },
+  { word: "Toy Story", category: "Movies", hint: "An animated friendship formed among playthings", difficulty: "easy" },
+
+  { word: "Wednesday", category: "TV Shows", hint: "A darkly playful school mystery", difficulty: "easy" },
+  { word: "The Mandalorian", category: "TV Shows", hint: "A space western centered on a guarded traveler", difficulty: "medium" },
+  { word: "Friends", category: "TV Shows", hint: "A long-running comedy about a close city group", difficulty: "easy" },
+  { word: "Sherlock", category: "TV Shows", hint: "A modern mystery series led by an observant detective", difficulty: "easy" },
+  { word: "The Crown", category: "TV Shows", hint: "A historical drama about duty and public life", difficulty: "medium" },
+
+  { word: "Temple", category: "Places", hint: "A quiet place connected with reflection or worship", difficulty: "easy" },
+  { word: "Stadium", category: "Places", hint: "A large venue built for crowds and competition", difficulty: "easy" },
+  { word: "Train Station", category: "Places", hint: "A transit point where journeys begin and end", difficulty: "easy" },
+  { word: "Beach", category: "Places", hint: "A shoreline where land meets open water", difficulty: "easy" },
+  { word: "Restaurant", category: "Places", hint: "A place where people gather around prepared meals", difficulty: "easy" },
+
+  { word: "Camera", category: "Objects", hint: "A device used to preserve a visual moment", difficulty: "easy" },
+  { word: "Key", category: "Objects", hint: "A small object that grants access", difficulty: "easy" },
+  { word: "Lantern", category: "Objects", hint: "A portable source of light for dark surroundings", difficulty: "easy" },
+  { word: "Mirror", category: "Objects", hint: "A surface that returns a familiar image", difficulty: "easy" },
+  { word: "Suitcase", category: "Objects", hint: "A travel container carried from place to place", difficulty: "easy" },
+
+  { word: "Teacher", category: "Professions", hint: "A person who helps others build knowledge", difficulty: "easy" },
+  { word: "Journalist", category: "Professions", hint: "A professional who gathers and presents information", difficulty: "medium" },
+  { word: "Farmer", category: "Professions", hint: "A worker whose routine follows land and seasons", difficulty: "easy" },
+  { word: "Engineer", category: "Professions", hint: "A problem-solver who designs useful systems", difficulty: "easy" },
+  { word: "Photographer", category: "Professions", hint: "A professional who tells stories through images", difficulty: "easy" },
+
+  { word: "Robot", category: "Technology", hint: "A machine designed to perform tasks", difficulty: "easy" },
+  { word: "Blockchain", category: "Technology", hint: "A shared digital record built from linked entries", difficulty: "hard" },
+  { word: "3D Printer", category: "Technology", hint: "A machine that builds physical forms layer by layer", difficulty: "medium" },
+  { word: "Search Engine", category: "Technology", hint: "A tool for finding information across the internet", difficulty: "easy" },
+  { word: "Cloud Storage", category: "Technology", hint: "A remote place for keeping digital files", difficulty: "easy" },
+
+  { word: "Pac-Man", category: "Games", hint: "A maze challenge involving pursuit and collection", difficulty: "easy" },
+  { word: "The Legend of Zelda", category: "Games", hint: "An adventure through a fantastical world", difficulty: "easy" },
+  { word: "Tetris", category: "Games", hint: "A timed puzzle about fitting falling shapes", difficulty: "easy" },
+  { word: "Fortnite", category: "Games", hint: "A colorful online contest of building and survival", difficulty: "easy" },
+  { word: "Cluedo", category: "Games", hint: "A deduction game built around a hidden incident", difficulty: "medium" },
+
+  { word: "Aurora", category: "Nature", hint: "A shifting glow seen in dark polar skies", difficulty: "medium" },
+  { word: "Earthquake", category: "Nature", hint: "A sudden movement beneath the ground", difficulty: "easy" },
+  { word: "Monsoon", category: "Nature", hint: "A seasonal weather pattern that reshapes daily life", difficulty: "easy" },
+  { word: "Coral Reef", category: "Nature", hint: "A colorful underwater ecosystem", difficulty: "medium" },
+  { word: "Forest", category: "Nature", hint: "A broad living landscape filled with trees", difficulty: "easy" },
+
+  { word: "Kerala", category: "Indian Cities", hint: "A lush southern region known for waterways", difficulty: "easy" },
+  { word: "Ahmedabad", category: "Indian Cities", hint: "A western Indian city with a strong textile past", difficulty: "medium" },
+  { word: "Lucknow", category: "Indian Cities", hint: "A northern city associated with refined traditions", difficulty: "medium" },
+  { word: "Amritsar", category: "Indian Cities", hint: "A city tied to a revered golden landmark", difficulty: "easy" },
+  { word: "Mysore", category: "Indian Cities", hint: "A southern city known for royal heritage", difficulty: "easy" },
+
+  { word: "Dhokla", category: "Indian Food", hint: "A light steamed savory snack often served in squares", difficulty: "easy" },
+  { word: "Vada Pav", category: "Indian Food", hint: "A spicy handheld snack associated with busy streets", difficulty: "easy" },
+  { word: "Poha", category: "Indian Food", hint: "A light flattened-grain breakfast dish", difficulty: "easy" },
+  { word: "Lassi", category: "Indian Food", hint: "A cool blended drink often paired with a meal", difficulty: "easy" },
+  { word: "Kheer", category: "Indian Food", hint: "A slow-cooked sweet dish served chilled or warm", difficulty: "easy" },
+
+  { word: "Onam", category: "Indian Culture", hint: "A harvest celebration associated with floral designs", difficulty: "medium" },
+  { word: "Saree", category: "Indian Culture", hint: "A traditional garment arranged in an elegant drape", difficulty: "easy" },
+  { word: "Diya", category: "Indian Culture", hint: "A small traditional light used on festive occasions", difficulty: "easy" },
+  { word: "Kathak", category: "Indian Culture", hint: "A classical performance tradition centered on movement", difficulty: "medium" },
+  { word: "Mehndi", category: "Indian Culture", hint: "Decorative body art applied for celebrations", difficulty: "easy" }
 ];
 
 export const words: WordEntry[] = INITIAL_WORDS.map((w, i) => ({

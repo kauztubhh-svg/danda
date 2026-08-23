@@ -4,6 +4,7 @@ import React from "react";
 import { useGameState } from "@/hooks/useGameState";
 import { motion } from "framer-motion";
 import { Skull, Trophy, RotateCcw, PlusCircle, Lightbulb, CheckCircle2 } from "lucide-react";
+import { getImposterHint } from "@/lib/game";
 
 export default function GameOver() {
   const { state, resetGame } = useGameState();
@@ -68,10 +69,10 @@ export default function GameOver() {
           </div>
 
           {/* Imposter Hint Given */}
-          {secretWord?.hint && (
+          {secretWord && (
             <div className="pt-2 border-t border-slate-800/80 text-xs text-slate-400 flex items-center justify-center gap-1.5">
               <Lightbulb size={14} className="text-amber-400 shrink-0" />
-              <span>Hint given: <strong className="text-slate-200">&ldquo;{secretWord.hint}&rdquo;</strong></span>
+              <span>Hint given: <strong className="text-slate-200">&ldquo;{getImposterHint(secretWord)}&rdquo;</strong></span>
             </div>
           )}
         </motion.div>

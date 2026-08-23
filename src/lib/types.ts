@@ -34,7 +34,6 @@ export type GameState = {
   startingPlayerId?: string;
   currentTurnIndex?: number;
   clueRound?: number;
-  soundEnabled?: boolean;
 };
 
 export const MIN_PLAYERS = 3;

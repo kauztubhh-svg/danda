@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import { GameState, Player, MIN_PLAYERS, MAX_PLAYERS } from "@/lib/types";
 import { selectRandomWord, shuffleArray, validateGameSetup, getMaxImposters } from "@/lib/game";
-import { soundManager } from "@/lib/audio";
 
 interface GameContextType {
   state: GameState;
@@ -20,8 +19,6 @@ interface GameContextType {
   nextClueTurn: () => void;
   endGame: () => void;
   resetGame: (preserveSettings?: boolean) => void;
-  toggleSound: () => void;
-  isSoundEnabled: boolean;
   currentPlayerToReveal: Player | undefined;
   isCurrentPlayerImposter: boolean;
   currentTurnPlayer: Player | undefined;
@@ -43,7 +40,6 @@ const defaultState: GameState = {
   revealOrder: [],
   currentRevealIndex: 0,
   clueRound: 1,
-  soundEnabled: true,
 };
 
 const STORAGE_KEY = "imposter_party_game_settings_v1";
@@ -85,7 +81,6 @@ function getInitialState(): GameState {
           players,
           imposterCount: parsed.imposterCount || 1,
           category: parsed.category || "ALL",
-          soundEnabled: parsed.soundEnabled ?? true,
         };
       }
     }
@@ -99,22 +94,6 @@ const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<GameState>(getInitialState);
-  const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(() => {
-    if (typeof window === "undefined") return true;
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.soundEnabled !== undefined) {
-          soundManager.setMuted(!parsed.soundEnabled);
-          return Boolean(parsed.soundEnabled);
-        }
-      }
-    } catch {
-      // Ignore
-    }
-    return true;
-  });
 
   // Save preferences when setup settings change
   useEffect(() => {
@@ -126,22 +105,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
             players: state.players,
             imposterCount: state.imposterCount,
             category: state.category,
-            soundEnabled: isSoundEnabled,
           })
         );
       } catch {
         // Ignore
       }
     }
-  }, [state.players, state.imposterCount, state.category, state.phase, isSoundEnabled]);
-
-  const toggleSound = useCallback(() => {
-    setIsSoundEnabled((prev) => {
-      const next = !prev;
-      soundManager.setMuted(!next);
-      return next;
-    });
-  }, []);
+  }, [state.players, state.imposterCount, state.category, state.phase]);
 
   const updateState = useCallback((updates: Partial<GameState>) => {
     setState((prev) => ({ ...prev, ...updates }));
@@ -307,7 +277,6 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const endGame = useCallback(() => {
-    soundManager.playGameOver();
     setState((prev) => ({ ...prev, phase: "game-over" }));
   }, []);
 
@@ -320,7 +289,6 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         : defaultInitialPlayers,
       imposterCount: preserveSettings ? prev.imposterCount : 1,
       category: preserveSettings ? prev.category : "ALL",
-      soundEnabled: prev.soundEnabled,
     }));
   }, []);
 
@@ -361,8 +329,6 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         nextClueTurn,
         endGame,
         resetGame,
-        toggleSound,
-        isSoundEnabled,
         currentPlayerToReveal,
         isCurrentPlayerImposter,
         currentTurnPlayer,

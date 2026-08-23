@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useGameState } from "@/hooks/useGameState";
 import { motion } from "framer-motion";
 import { Dices, Sparkles, ArrowRight } from "lucide-react";
-import { soundManager } from "@/lib/audio";
 
 export default function StarterSelection() {
   const { state, advanceStarterToCluePhase } = useGameState();
@@ -20,13 +19,11 @@ export default function StarterSelection() {
       rollCount++;
       const randomPlayer = state.players[Math.floor(Math.random() * state.players.length)];
       setDisplayedName(randomPlayer.name);
-      soundManager.playRouletteClick();
 
       if (rollCount >= maxRolls) {
         clearInterval(interval);
         setDisplayedName(chosenPlayer.name);
         setIsRolling(false);
-        soundManager.playStarterSelected();
       }
     }, 90);
 

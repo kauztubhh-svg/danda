@@ -5,7 +5,7 @@ import { useGameState } from "@/hooks/useGameState";
 import { Lock, Fingerprint } from "lucide-react";
 import NormalPlayerCard from "@/components/NormalPlayerCard";
 import ImposterCard from "@/components/ImposterCard";
-import { soundManager } from "@/lib/audio";
+import { getImposterHint } from "@/lib/game";
 
 const HOLD_DURATION_MS = 1100; // Hold time required for reveal
 
@@ -24,7 +24,6 @@ export default function RevealScreen() {
 
   const holdStartRef = useRef<number | null>(null);
   const animFrameRef = useRef<number | null>(null);
-  const lastTickProgressRef = useRef<number>(0);
 
   const handleRevealComplete = useCallback(() => {
     holdStartRef.current = null;
@@ -32,12 +31,7 @@ export default function RevealScreen() {
     setIsRevealed(true);
     setIsHolding(false);
     setProgress(100);
-    if (isCurrentPlayerImposter) {
-      soundManager.playImposterReveal();
-    } else {
-      soundManager.playNormalReveal();
-    }
-  }, [isCurrentPlayerImposter]);
+  }, []);
 
   const startHold = (e: React.PointerEvent) => {
     // Prevent default context menus or gesture triggers
@@ -46,7 +40,6 @@ export default function RevealScreen() {
 
     setIsHolding(true);
     holdStartRef.current = Date.now();
-    lastTickProgressRef.current = 0;
     e.currentTarget.setPointerCapture(e.pointerId);
 
     const step = () => {
@@ -54,12 +47,6 @@ export default function RevealScreen() {
       const elapsed = Date.now() - holdStartRef.current;
       const currentProgress = Math.min(100, (elapsed / HOLD_DURATION_MS) * 100);
       setProgress(currentProgress);
-
-      // Audio feedback ticks every 20%
-      if (currentProgress - lastTickProgressRef.current > 20) {
-        soundManager.playTick(currentProgress / 100);
-        lastTickProgressRef.current = currentProgress;
-      }
 
       if (currentProgress >= 100) {
         handleRevealComplete();
@@ -119,7 +106,7 @@ export default function RevealScreen() {
       return (
         <ImposterCard
           playerName={currentPlayerToReveal.name}
-          hint={state.secretWord.hint}
+          hint={getImposterHint(state.secretWord)}
           category={state.secretWord.category}
           onHide={hideAndNextCard}
         />

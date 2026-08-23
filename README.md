@@ -16,14 +16,14 @@ Built with **Next.js**, **React 19**, **TypeScript**, **Tailwind CSS**, and **Fr
 
 2. **Pass & Private Reveal**:
    - The phone is passed to each player in randomized sequence.
-   - Each player **presses and holds** their card (with animated progress indicator).
+   - Each player **presses and holds** their card (with an animated progress indicator).
    - **Civilian Players** see the **Secret Word** and the category.
    - **Imposter(s)** see **ONLY a vague Hint** — the secret word is **never** shown or exposed in the DOM.
    - Releasing early resets progress, preventing accidental reveals.
    - Tapping **Hide Card** immediately cleans the screen for the next player.
 
 3. **Starter Selection**:
-   - A dramatic animated roulette chooses a **random starting player**.
+   - A quiet animated roulette chooses a **random starting player**.
 
 4. **Clue Phase**:
    - Players take turns giving a short clue verbally in circular order.
@@ -77,13 +77,13 @@ imposter-game/
 │   │   ├── page.tsx           # Dynamic GamePhase state router with AnimatePresence
 │   │   └── globals.css        # Tailwind v4, custom scrollbars, safe areas
 │   ├── components/
-│   │   ├── HomeScreen.tsx       # Landing screen with sound toggle & rules
+│   │   ├── HomeScreen.tsx       # Landing screen and rules access
 │   │   ├── GameSetup.tsx        # Player count, inputs, imposter count, category picker
 │   │   ├── PlayerInputs.tsx     # Enter-key navigation, duplicate name validation
 │   │   ├── ImposterSelector.tsx # Stepper with dynamic bounds
 │   │   ├── CategorySelector.tsx # Modal grid with badge counts & ALL default
 │   │   ├── PassPhoneScreen.tsx  # Pass-the-phone privacy checkpoint
-│   │   ├── RevealScreen.tsx     # Pointer-event press-and-hold radial progress
+│   │   ├── RevealScreen.tsx     # Silent pointer-event press-and-hold radial progress
 │   │   ├── NormalPlayerCard.tsx # Civilian view (Secret Word)
 │   │   ├── ImposterCard.tsx     # Imposter view (Hint only; no secret word)
 │   │   ├── ReadyScreen.tsx      # All cards seen checkpoint
@@ -97,7 +97,6 @@ imposter-game/
 │   ├── hooks/
 │   │   └── useGameState.tsx   # React Context state machine & local storage sync
 │   ├── lib/
-│   │   ├── audio.ts           # Web Audio API procedural sound synthesizer
 │   │   ├── game.ts            # Fisher-Yates shuffle, validation, word selection
 │   │   └── types.ts           # GamePhase, Player, WordEntry, GameState interfaces
 └── test-game-logic.ts         # Automated test verification suite
