@@ -1,5 +1,5 @@
 import { getWordsByCategory, words, CATEGORIES } from "./src/data/words";
-import { validateGameSetup, validateHint, getMaxImposters, shuffleArray, selectRandomWord } from "./src/lib/game";
+import { validateGameSetup, validateHint, getImposterHint, getMaxImposters, shuffleArray, selectRandomWord } from "./src/lib/game";
 import { Player } from "./src/lib/types";
 
 let failed = 0;
@@ -132,6 +132,11 @@ CATEGORIES.forEach((cat) => {
   const catWords = getWordsByCategory(cat);
   assert(catWords.length > 0, `Category "${cat}" has ${catWords.length} words`);
 });
+
+// --- TEST 12: Imposter clues stay one word ---
+console.log("\n--- Test 12: One-word imposter clues ---");
+const invalidShortHints = words.filter((word) => !/^[a-z]+$/i.test(getImposterHint(word)));
+assert(invalidShortHints.length === 0, `All ${words.length} imposter clues are exactly one word`);
 
 if (failed === 0) {
   console.log("\n🎉 ALL 11 TEST SUITES PASSED FLAWLESSLY!");

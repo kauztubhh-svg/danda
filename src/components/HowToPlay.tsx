@@ -26,7 +26,7 @@ export default function HowToPlay({ onClose }: HowToPlayProps) {
       num: 3,
       icon: HelpCircle,
       title: "Word vs. Hint",
-      desc: "Normal players see the Secret Word. Imposters see ONLY a vague Hint and have no idea what the real word is!",
+      desc: "Normal players see the Secret Word. Imposters see ONLY one vague related word and have no idea what the real word is!",
     },
     {
       num: 4,

@@ -48,7 +48,7 @@ export default function ImposterCard({
         <div className="p-7 rounded-3xl bg-slate-900 border-2 border-rose-500/50 shadow-2xl shadow-rose-500/10 space-y-4">
           <div className="flex items-center justify-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
             <Lightbulb size={16} />
-            <span>YOUR ONLY HINT</span>
+            <span>ONE-WORD HINT</span>
           </div>
 
           <div className="text-2xl sm:text-3xl font-black text-rose-100 tracking-tight break-words py-1">

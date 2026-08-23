@@ -32,36 +32,36 @@ export function selectRandomWord(category: string, excludeWordId?: string): Word
 }
 
 /**
- * Give imposters a broad association instead of a giveaway description.
+ * Give imposters one broad association instead of a giveaway description.
  */
 export function getImposterHint(word: WordEntry): string {
   const categoryHints: Record<string, string> = {
-    Animals: "A living thing with a distinctive natural character",
-    Food: "A familiar choice with a recognizable taste or texture",
-    Countries: "A place shaped by its own culture and landscape",
-    Cities: "A busy place with a character of its own",
-    Sports: "A competitive activity with its own rhythm and rules",
-    Movies: "A well-known story experienced on a screen",
-    "TV Shows": "A familiar story told across multiple episodes",
-    Places: "A location people visit for a recognizable reason",
-    Objects: "An everyday thing with a practical purpose",
-    Professions: "A role built around a particular kind of work",
-    Technology: "An idea that changes how people use modern tools",
-    Games: "A pastime with a recognizable way to play",
-    Nature: "A striking part of the world around us",
-    General: "An idea people can recognize from everyday life",
-    Bollywood: "A memorable Indian screen story",
-    "Indian Celebrities": "A familiar Indian public figure",
-    "Indian College Words": "Something strongly connected with campus life",
-    "Indian Food": "A familiar dish from the Indian table",
-    "Indian Cities": "A distinct place in India",
-    "Indian Culture": "A tradition or idea rooted in Indian life",
-    "Indian Sports": "A sport with a strong Indian connection",
-    Cybersecurity: "A concept from the world of digital protection",
-    "Cyber Words": "A term from the world of connected technology",
+    Animals: "instinct",
+    Food: "flavor",
+    Countries: "culture",
+    Cities: "travel",
+    Sports: "motion",
+    Movies: "screen",
+    "TV Shows": "episode",
+    Places: "visit",
+    Objects: "purpose",
+    Professions: "work",
+    Technology: "future",
+    Games: "play",
+    Nature: "wild",
+    General: "familiar",
+    Bollywood: "screen",
+    "Indian Celebrities": "fame",
+    "Indian College Words": "campus",
+    "Indian Food": "spice",
+    "Indian Cities": "journey",
+    "Indian Culture": "tradition",
+    "Indian Sports": "motion",
+    Cybersecurity: "defense",
+    "Cyber Words": "network",
   };
 
-  return categoryHints[word.category] || "A recognizable idea connected with this category";
+  return categoryHints[word.category] || "familiar";
 }
 
 /**
