@@ -1,4 +1,4 @@
-﻿import { Player, WordEntry, MIN_PLAYERS, MAX_PLAYERS } from "./types";
+import { Player, WordEntry, MIN_PLAYERS, MAX_PLAYERS } from "./types";
 import { getWordsByCategory } from "../data/words";
 
 /**
@@ -32,36 +32,44 @@ export function selectRandomWord(category: string, excludeWordId?: string): Word
 }
 
 /**
- * Give imposters one broad association instead of a giveaway description.
+ * Return a single-word imposter hint. Prefer per-word imposterHint when valid,
+ * otherwise fall back to a safe category-level one-word hint.
  */
 export function getImposterHint(word: WordEntry): string {
+  // Helper: check single token (letters only) and that it doesn't leak the word
+  const isSingleToken = (s?: string) => !!s && /^[a-z]+$/i.test(s);
+
+  if (word.imposterHint && isSingleToken(word.imposterHint) && validateHint(word.word, word.imposterHint)) {
+    return word.imposterHint.toLowerCase();
+  }
+
   const categoryHints: Record<string, string> = {
-    Animals: "instinct",
-    Food: "flavor",
-    Countries: "culture",
-    Cities: "travel",
-    Sports: "motion",
-    Movies: "screen",
-    "TV Shows": "episode",
-    Places: "visit",
-    Objects: "purpose",
-    Professions: "work",
-    Technology: "future",
+    Animals: "creature",
+    Food: "taste",
+    Countries: "nation",
+    Cities: "urban",
+    Sports: "game",
+    Movies: "film",
+    "TV Shows": "series",
+    Places: "site",
+    Objects: "item",
+    Professions: "job",
+    Technology: "tech",
     Games: "play",
     Nature: "wild",
-    General: "familiar",
-    Bollywood: "screen",
-    "Indian Celebrities": "fame",
+    General: "common",
+    Bollywood: "film",
+    "Indian Celebrities": "star",
     "Indian College Words": "campus",
     "Indian Food": "spice",
-    "Indian Cities": "journey",
+    "Indian Cities": "city",
     "Indian Culture": "tradition",
-    "Indian Sports": "motion",
-    Cybersecurity: "defense",
+    "Indian Sports": "sport",
+    Cybersecurity: "security",
     "Cyber Words": "network",
   };
 
-  return categoryHints[word.category] || "familiar";
+  return (categoryHints[word.category] || "common").toLowerCase();
 }
 
 /**
