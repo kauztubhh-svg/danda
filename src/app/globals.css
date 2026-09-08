@@ -28,7 +28,14 @@ html, body {
 }
 
 body {
-  font-family: "Comic Sans MS", "Segoe Print", cursive;
+  /* Use a simple, widely-available serif (like Times New Roman) for readability.
+     Fall back to Times, Georgia, then a generic serif. Increase base size and
+     line-height for better mobile readability and enable font smoothing. */
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image: radial-gradient(#d7e5e9 0.7px, transparent 0.7px);
   background-size: 18px 18px;
 }
@@ -116,7 +123,7 @@ button[class*="bg-slate-"]:hover {
   background-color: #fff7d4 !important;
 }
 
-button[class*="bg-indigo-"]:hover,
+button[class*="bg-indigo-"],
 button[class*="bg-gradient"]:hover {
   background-color: #f5c52d !important;
 }
@@ -181,6 +188,11 @@ input:focus {
 }
 
 @media (max-width: 640px) {
+  /* Slightly increase base font-size on small screens for better readability */
+  body {
+    font-size: 17px;
+  }
+
   .app-shell::before {
     top: 4%;
     left: -32px;
