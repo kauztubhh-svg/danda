@@ -19,6 +19,7 @@ export type WordEntry = {
   word: string;
   category: string;
   hint: string;
+  imposterHint?: string; // single-word contextual hint shown to imposters
   difficulty?: "easy" | "medium" | "hard";
 };
 
@@ -38,4 +39,3 @@ export type GameState = {
 
 export const MIN_PLAYERS = 3;
 export const MAX_PLAYERS = 20;
-
